@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <EditTextPreference
+        android:key="et_name"
+        android:title="이름"
+        />
+    <CheckBoxPreference
+        android:key="cb_draw"
+        android:title="Drawing?"
+        android:summary="이미지 보기"
+        android:defaultValue="true"
+        />
+    <PreferenceCategory
+        android:title="카테고리">
+        <PreferenceScreen
+            android:key="fluit"
+            android:title="과일">
+            <CheckBoxPreference
+                android:key="fluit_01"
+                android:title="사과"/>
+            <CheckBoxPreference
+                android:key="fluit_02"
+                android:title="배"/>
+            <CheckBoxPreference
+                android:key="fluit_03"
+                android:title="포도"/>
+        </PreferenceScreen>
+    </PreferenceCategory>
+</PreferenceScreen>
