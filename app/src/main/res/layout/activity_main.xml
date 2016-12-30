@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:ads="http://schemas.android.com/apk/res-auto"
     android:id="@+id/activity_main"
+    android:background="#e6ffe6"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -18,9 +19,9 @@
     <com.ss.bottomnavigation.BottomNavigation
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
+        android:layout_height="45dp"
         android:layout_alignParentBottom="true"
-        android:background="#8811FFFF">
+        android:background="@color/total_back">
         <com.ss.bottomnavigation.TabItem
             android:id="@+id/tab_first"
             android:background="@android:color/transparent"
@@ -34,14 +35,14 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            app:tab_icon="@drawable/settings"
+            app:tab_icon="@drawable/calendar"
             />
         <com.ss.bottomnavigation.TabItem
             android:id="@+id/tab_third"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            app:tab_icon="@drawable/like"
+            app:tab_icon="@drawable/settings"
             />
     </com.ss.bottomnavigation.BottomNavigation>
 

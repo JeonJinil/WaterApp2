@@ -8,4 +8,6 @@ import java.util.ArrayList;
 
 public interface CustomButtonListener {
     public void onButtonClickListner(int position,ArrayList<WaterList> datas);
+    public void onDateClickLinstenr(String date);
+    public void onTimeClickLinstenr(String time,boolean type);
 }

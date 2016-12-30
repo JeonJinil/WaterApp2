@@ -15,9 +15,14 @@ import java.util.Calendar;
  */
 public class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
 
+    CustomButtonListener customListner;
     public DatePickerFragment(){
 
     }
+    public DatePickerFragment(CustomButtonListener listener){
+        customListner = listener;
+    }
+
 
     @NonNull
     @Override
@@ -26,16 +31,22 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
-        return new DatePickerDialog(getActivity(), this, year, month,day);
+
+
+
+    return new DatePickerDialog(getActivity(), this, year, month,day);
     }
 
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-        TextView tv = (TextView) getActivity().findViewById(R.id.third_date_text);
+        TextView tv = (TextView) getActivity().findViewById(R.id.second_date_text);
         //Set a message for user
         tv.setText("고르신 날짜는 : ");
         //Display the user changed time on TextView
-        tv.setText(tv.getText()+ "Year : " + String.valueOf(year)
-                + "\nMonth : " + String.valueOf(month) + "day : "+String.valueOf(dayOfMonth)+"\n");
+        String data=   String.valueOf(year) +"/"+ String.valueOf(month+1) + "/" + String.valueOf(dayOfMonth) ;
+        tv.setText(data);
+        customListner.onDateClickLinstenr(data);
     }
+
+
 }

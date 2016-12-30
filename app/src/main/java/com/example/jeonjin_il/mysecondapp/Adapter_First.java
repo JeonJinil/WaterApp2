@@ -16,7 +16,7 @@ import java.util.ArrayList;
  * Created by jeonjin-il on 2016. 12. 28..
  */
 
-public class Adapter extends BaseAdapter  {
+public class Adapter_First extends BaseAdapter  {
 
     ArrayList<WaterList> datas;
     LayoutInflater inflater;
@@ -25,7 +25,7 @@ public class Adapter extends BaseAdapter  {
     DBHelper db;
     CustomButtonListener customListner;
 
-    public Adapter(LayoutInflater inflater, ArrayList<WaterList> datas, Context context,CustomButtonListener listener) {
+    public Adapter_First(LayoutInflater inflater, ArrayList<WaterList> datas, Context context, CustomButtonListener listener) {
         // TODO Auto-generated constructor stub
 
         this.datas = datas;
@@ -66,15 +66,14 @@ public class Adapter extends BaseAdapter  {
         }
         delete_button = (Button) convertView.findViewById(R.id.listview_button);
         ImageView icon = (ImageView)  convertView.findViewById(R.id.listview_icon);
-        TextView text_name = (TextView) convertView.findViewById(R.id.listview_name);
-        TextView text_day = (TextView) convertView.findViewById(R.id.listview_day);
         TextView text_time = (TextView) convertView.findViewById(R.id.listview_time);
+        TextView text_capacity = (TextView) convertView.findViewById(R.id.listview_capacity);
 
 
         WaterList temp = datas.get(position);
 
-        text_name.setText(temp.getName());
-        text_day.setText(temp.getDay());
+        String capa = String.valueOf(temp.getCapacity()) + "ml";
+        text_capacity.setText(capa);
         text_time.setText(temp.getTime());
 
         if(temp.getWater_id() == 1)
@@ -94,7 +93,7 @@ public class Adapter extends BaseAdapter  {
                 db = new DBHelper(context,"WATER.db",null,1);
                 db.delete_history(datas.get(position).getId(), datas.get(position).getWater_id() , datas.get(position).getDay());
                 datas.remove(position);
-                Adapter.this.notifyDataSetChanged();
+                Adapter_First.this.notifyDataSetChanged();
                 customListner.onButtonClickListner(position,datas);
             }
         });

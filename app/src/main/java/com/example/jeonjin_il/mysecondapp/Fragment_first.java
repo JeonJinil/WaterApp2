@@ -110,7 +110,7 @@ public class Fragment_first extends Fragment  {
         });
 
 
-
+        //service
 //        servicehandler = new Handler();
 //        servicehandler.postDelayed(mMyService,5000);
 
@@ -122,7 +122,7 @@ public class Fragment_first extends Fragment  {
         Date date = new Date(now);
         SimpleDateFormat sdfNow = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         String formatDate = new SimpleDateFormat("yyyy/MM/dd").format(date);
-        String formatTime = new SimpleDateFormat("HH:mm:ss").format(date);
+        String formatTime = new SimpleDateFormat("HH:mm").format(date);
         if (insert)
             db.insert_history(id, formatDate, formatTime);
 
@@ -133,10 +133,20 @@ public class Fragment_first extends Fragment  {
             public void onButtonClickListner(int position,  ArrayList<WaterList> tempdata) {
                 make_board(tempdata);
             }
+
+            @Override
+            public void onDateClickLinstenr(String date) {
+
+            }
+
+            @Override
+            public void onTimeClickLinstenr(String time,boolean type) {
+
+            }
         };
         listview = (ListView) view.findViewById(R.id.main_listview);
-        Adapter list_adapter = new Adapter(inflater, datas, getActivity(),customButtonListener);
-        listview.setAdapter(list_adapter);
+        Adapter_First list_adapterFirst = new Adapter_First(inflater, datas, getActivity(),customButtonListener);
+        listview.setAdapter(list_adapterFirst);
 
 
         make_board(datas);
@@ -160,6 +170,7 @@ public class Fragment_first extends Fragment  {
 
     private Runnable mMyTask = new Runnable() {
         public void run() {
+            Endnum = (int)db.getKG()*30;
             if(last < Nownum) {
                 progress.setMax(Endnum);
                 progress.setProgress(last);
@@ -190,7 +201,7 @@ public class Fragment_first extends Fragment  {
             //Service
             getActivity().startService(new Intent(getActivity(), MyService.class));
             getActivity().stopService(new Intent(getActivity(), MyService.class));
-            servicehandler.postDelayed(mMyService,5000);
+//            servicehandler.postDelayed(mMyService,5000);
         }
     };
 

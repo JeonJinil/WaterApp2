@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.StringTokenizer;
 
 /**
  * Created by jeonjin-il on 2016. 12. 27..
@@ -21,6 +22,8 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
 
+        db.execSQL("CREATE TABLE USER (name TEXT, kg REAL);");
+        db.execSQL("CREATE TABLE TIME (start_hour INTEGER, start_min INTEGER, end_hour INTEGER , end_min INTEGER);");
         db.execSQL("CREATE TABLE WATERLIST ( id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT ,capacity INTEGER, percentage INTEGER );");
         db.execSQL("CREATE TABLE DAY_HISTORY ( id INTEGER PRIMARY KEY AUTOINCREMENT , water_id INTEGER , day TEXT , time TEXT);");
         db.execSQL("CREATE TABLE TOTAL_HISTORY ( id INTEGER PRIMARY KEY AUTOINCREMENT , day TEXT , now_water INTEGER  , total_water INTEGER);");
@@ -33,10 +36,12 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     public void init(){
-        Log.d("TAG","HELLO");
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM WATERLIST ", null);
         if( !cursor.moveToNext()){
+
+            db.execSQL("INSERT INTO USER VALUES('물좋아',65.0);");
+            db.execSQL("INSERT INTO TIME VALUES(8 , 0, 22 , 0);");
             db.execSQL("INSERT INTO WATERLIST VALUES(null,'나의물잔' ,200 , 100);");
             db.execSQL("INSERT INTO WATERLIST VALUES(null,'생수한통' ,500 , 100);");
             db.execSQL("INSERT INTO WATERLIST VALUES(null,'커피' ,500 , -50);");
@@ -45,6 +50,56 @@ public class DBHelper extends SQLiteOpenHelper {
 
             db.close();
         }
+    }
+
+    public void Set_startTime(String time){
+        SQLiteDatabase db = getReadableDatabase();
+        StringTokenizer st = new StringTokenizer(time,":");
+        int h = Integer.parseInt(st.nextToken());
+        int m = Integer.parseInt(st.nextToken());
+        db.execSQL("UPDATE TIME  SET start_hour = '"+ h +"' , start_min = '" +m+ "' ");
+
+    }
+    public void Set_endTime(String time){
+        SQLiteDatabase db = getReadableDatabase();
+        StringTokenizer st = new StringTokenizer(time,":");
+        int h = Integer.parseInt(st.nextToken());
+        int m = Integer.parseInt(st.nextToken());
+        db.execSQL("UPDATE TIME SET end_hour = '"+ h +"' , end_min = '"+m+"'");
+    }
+
+    public String get_startTime(){
+        String ret;
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM TIME ", null);
+        cursor.moveToNext();
+        if(cursor.getInt(1) >=0 && cursor.getInt(1) <=9)
+            ret = String.valueOf(cursor.getInt(0)) + ":0"+String.valueOf(cursor.getInt(1));
+        else
+            ret = String.valueOf(cursor.getInt(0)) + ":"+String.valueOf(cursor.getInt(1));
+        return ret;
+    }
+    public String get_endTime(){
+        String ret;
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM TIME ", null);
+        cursor.moveToNext();
+        ret = String.valueOf(cursor.getInt(2)) + ":"+String.valueOf(cursor.getInt(3));
+        return ret;
+    }
+
+    public float getKG(){
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM USER ", null);
+        cursor.moveToNext();
+
+        return cursor.getFloat(1);
+    }
+    public String getName(){
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM USER ", null);
+        cursor.moveToNext();
+        return cursor.getString(0);
     }
 
     public void insert_history(int water_id,String day,String time){
@@ -61,7 +116,8 @@ public class DBHelper extends SQLiteOpenHelper {
         }
 
         if(cursor2.getCount() == 0) {
-            db.execSQL("INSERT INTO TOTAL_HISTORY VALUES(null, '"+day+"','"+temp1+"' , 2000 );");
+            int needWater = (int)getKG()*30;
+            db.execSQL("INSERT INTO TOTAL_HISTORY VALUES(null, '"+day+"','"+temp1+"' , '"+needWater+"' );");
         }else{
             cursor2.moveToNext();
             temp2 = cursor2.getInt(2);

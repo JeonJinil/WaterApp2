@@ -2,40 +2,45 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
-    android:gravity="center"
+    android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="125dp"
+        android:layout_height="190dp"
         android:src="@drawable/water_bottle"
         android:id="@+id/listview_icon"
+        android:layout_gravity="center"
         />
+
+    <TextView
+        android:text="10:00"
+        android:textSize="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="37dp"
+        android:gravity="center"
+        android:id="@+id/listview_time"/>
+
+    <TextView
+        android:textSize="20dp"
+        android:text="100ml"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:id="@+id/listview_capacity"/>
+
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="물한잔 200ml"
-            android:id="@+id/listview_name"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/listview_day"
-            android:text="2016-12-30"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/listview_time"/>
+        android:layout_width="match_parent"
+        android:gravity="right"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_width="wrap_content"
+            android:background="@drawable/values"
+            android:layout_height="wrap_content"
+            android:id="@+id/listview_button"
+            android:text="기록 지우기"
+            android:focusable="false"/>
     </LinearLayout>
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/listview_button"
-        android:text="지우기"
-        android:focusable="false"/>
+
 </LinearLayout>

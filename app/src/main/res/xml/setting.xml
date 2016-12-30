@@ -1,29 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <EditTextPreference
-        android:key="et_name"
-        android:title="이름"
-        />
-    <CheckBoxPreference
-        android:key="cb_draw"
-        android:title="Drawing?"
-        android:summary="이미지 보기"
-        android:defaultValue="true"
-        />
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
     <PreferenceCategory
-        android:title="카테고리">
-        <PreferenceScreen
-            android:key="fluit"
-            android:title="과일">
-            <CheckBoxPreference
-                android:key="fluit_01"
-                android:title="사과"/>
-            <CheckBoxPreference
-                android:key="fluit_02"
-                android:title="배"/>
-            <CheckBoxPreference
-                android:key="fluit_03"
-                android:title="포도"/>
-        </PreferenceScreen>
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:key="setting_activity_account"
+        android:title="어플리케이션 정보">
+    <Preference
+        android:key="setting_activity_id"
+        android:title="어플케이션 이름"
+        android:selectable="true" />
+    <Preference
+        android:key="setting_activity_app_version"
+        android:title="어플리케이션 버전"
+        android:selectable="true" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="keycatehelp"
+        android:title="문의하기" >
+        <Preference
+            android:key="keyhelp"
+            android:title="도움말" />
+        <Preference
+            android:key="keycontact"
+            android:title="고객센터" />
     </PreferenceCategory>
 </PreferenceScreen>
